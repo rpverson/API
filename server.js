@@ -1,4 +1,4 @@
-//New Code
+//CORS added policy
 
 const express = require('express');
 const app = express();
@@ -7,6 +7,14 @@ const https = require('https');
 
 const csvFileUrl = 'https://raw.githubusercontent.com/rpverson/API/main/data.csv'; // Reemplaza con la URL real de tu archivo CSV
 const port = process.env.PORT || 3000;
+
+// Middleware para permitir solicitudes CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.get('/api/productos', (req, res) => {
   https.get(csvFileUrl, (response) => {
