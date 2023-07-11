@@ -1,0 +1,21 @@
+{
+    "name": "ecommerce-api",
+    "version": "1.0.0",
+    "description": "API for sharing content from a CSV document",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "keywords": [
+      "API",
+      "CSV",
+      "ecommerce"
+    ],
+    "author": "Tu Nombre",
+    "license": "MIT",
+    "dependencies": {
+      "express": "^4.17.1",
+      "csvtojson": "^2.0.10"
+    }
+  }
+  
