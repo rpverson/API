@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const csvFilePath = 'data.csv'; // Reemplaza 'ruta/al/archivo.csv' con la ruta real de tu archivo CSV
 
