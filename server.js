@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/productos', (req, res) => {
-    const searchTerm = req.query.search || ''; // Obtiene el término de búsqueda de los parámetros de la URL
+    const searchTerm = req.query.search || '';
   
     https.get(csvFileUrl, (response) => {
       let data = '';
@@ -30,10 +30,10 @@ app.get('/api/productos', (req, res) => {
         csv()
           .fromString(data)
           .then((jsonObj) => {
-            // Filtra los productos basados en el término de búsqueda
-            const filteredProducts = jsonObj.filter(producto =>
-              producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+            const filteredProducts = jsonObj.filter((producto) => {
+              const nombre = producto.nombre || ''; // Maneja la propiedad 'nombre' undefined
+              return nombre.toLowerCase().includes(searchTerm.toLowerCase());
+            });
   
             res.json(filteredProducts);
           })
@@ -44,6 +44,7 @@ app.get('/api/productos', (req, res) => {
       });
     });
   });
+  
   
 
 app.listen(port, () => {
