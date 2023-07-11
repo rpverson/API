@@ -17,26 +17,34 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/productos', (req, res) => {
-  https.get(csvFileUrl, (response) => {
-    let data = '';
-
-    response.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    response.on('end', () => {
-      csv()
-        .fromString(data)
-        .then((jsonObj) => {
-          res.json(jsonObj);
-        })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).json({ error: 'Internal server error' });
-        });
+    const searchTerm = req.query.search || ''; // Obtiene el término de búsqueda de los parámetros de la URL
+  
+    https.get(csvFileUrl, (response) => {
+      let data = '';
+  
+      response.on('data', (chunk) => {
+        data += chunk;
+      });
+  
+      response.on('end', () => {
+        csv()
+          .fromString(data)
+          .then((jsonObj) => {
+            // Filtra los productos basados en el término de búsqueda
+            const filteredProducts = jsonObj.filter(producto =>
+              producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+  
+            res.json(filteredProducts);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Internal server error' });
+          });
+      });
     });
   });
-});
+  
 
 app.listen(port, () => {
   console.log(`API running on port ${port}`);
