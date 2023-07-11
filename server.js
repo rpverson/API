@@ -5,7 +5,7 @@ const app = express();
 const csv = require('csvtojson');
 const https = require('https');
 
-const csvFileUrl = 'https://github.com/rpverson/API/blob/main/data.csv'; // Reemplaza con la URL real de tu archivo CSV
+const csvFileUrl = 'https://people.sc.fsu.edu/~jburkardt/data/csv/addresses.csv'; // Reemplaza con la URL real de tu archivo CSV
 const port = process.env.PORT || 3000;
 
 app.get('/api/productos', (req, res) => {
