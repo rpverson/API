@@ -31,7 +31,7 @@ app.get('/api/productos', (req, res) => {
           .fromString(data)
           .then((jsonObj) => {
             const filteredProducts = jsonObj.filter((producto) => {
-              const nombre = producto.nombre || ''; // Maneja la propiedad 'nombre' undefined
+              const nombre = producto.Name || ''; // Maneja la propiedad 'nombre' undefined
               return nombre.toLowerCase().includes(searchTerm.toLowerCase());
             });
   
